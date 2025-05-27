@@ -88,6 +88,16 @@ struct ButtonGrid: View {
             return
         }
         
+        if currentMode == .division && savedInt == 0 && currentInt == 0 {
+                total = "Indeterminate"
+                return
+            }
+            // Check for division by zero
+            else if currentMode == .division && currentInt == 0 {
+                total = "Undefined"
+                return
+            }
+        
         if currentMode == .addition {
             savedInt += currentInt
         } else if currentMode == .subtraction {
@@ -111,6 +121,7 @@ struct ButtonGrid: View {
         formatter.numberStyle = .decimal
         total = formatter.string(for: currentInt) ?? "Error"
     }
+    
 }
 
 #Preview {

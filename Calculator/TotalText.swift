@@ -16,9 +16,9 @@ struct TotalText: View {
             .font(.system(size: 80))
             .padding()
             .lineLimit(1)
+            .minimumScaleFactor(0.5)
     }
 }
-
 #Preview {
     TotalText()
 }

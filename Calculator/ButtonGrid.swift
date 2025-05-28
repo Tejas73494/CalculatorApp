@@ -19,14 +19,15 @@ struct ButtonGrid: View {
     @Binding var total: String
     @State var currentMode: CalculatorMode = .notSet
     @State var lastButtonWasMode = false
-    @State var savedInt = 0
-    @State var currentInt = 0
+    @State var savedInt: Double = 0.0
+    @State var currentInt: Double = 0.0
+    @State var currentInput: String = "0"
     var body: some View {
         Grid {
             GridRow {
                 CalculatorButton(buttonText: "AC", color: .gray, action: clearWasPressed)
-                CalculatorButton(buttonText: "+/-", color: .gray)
-                CalculatorButton(buttonText: "%", color: .gray)
+                CalculatorButton(buttonText: "+/-", color: .gray, action: negativeWasPressed)
+                CalculatorButton(buttonText: "%", color: .gray, action: percentWasPressed)
                 CalculatorImageButton(buttonText: "divide", color: .orange, action: modeWasPressed, mode: CalculatorMode.division)
             }
             GridRow {
@@ -50,7 +51,7 @@ struct ButtonGrid: View {
             GridRow {
                 CalculatorButton(buttonText: "0", width: 147, action: numberWasPressed)
                     .gridCellColumns(2)
-                CalculatorButton(buttonText: ".")
+                CalculatorButton(buttonText: ".", action: decimalWasPressed)
                 CalculatorImageButton(buttonText: "equal", color: .orange, action: equalWasPressed)
             }
         }
@@ -59,10 +60,18 @@ struct ButtonGrid: View {
     func numberWasPressed(button: CalculatorButton) {
         if lastButtonWasMode {
             lastButtonWasMode = false
-            currentInt = 0
+            currentInput = ""
         }
-        if let totalInt = Int("\(currentInt)" + button.buttonText) {
-            currentInt = totalInt
+
+        // Avoid leading zeros
+        if currentInput == "0" {
+            currentInput = button.buttonText
+        } else {
+            currentInput += button.buttonText
+        }
+
+        if let inputAsDouble = Double(currentInput) {
+            currentInt = inputAsDouble
             updateText()
         } else {
             total = "Error"
@@ -76,13 +85,14 @@ struct ButtonGrid: View {
     }
     
     func clearWasPressed(button: CalculatorButton) {
-         total = "0"
-         currentMode = .notSet
-         lastButtonWasMode = false
-         savedInt = 0
-         currentInt = 0
+        total = "0"
+        currentMode = .notSet
+        lastButtonWasMode = false
+        savedInt = 0
+        currentInt = 0
+        currentInput = "0"
     }
-    
+
     func equalWasPressed(button: CalculatorImageButton) {
         if currentMode == .notSet || lastButtonWasMode {
             return
@@ -112,6 +122,31 @@ struct ButtonGrid: View {
         updateText()
         lastButtonWasMode = true
     }
+    
+    func percentWasPressed(button: CalculatorButton) {
+        currentInt /= 100
+        updateText()
+    }
+    
+    func negativeWasPressed(button: CalculatorButton) {
+        currentInt *= -1
+        updateText()
+    }
+    
+    func decimalWasPressed(button: CalculatorButton) {
+        if lastButtonWasMode {
+            lastButtonWasMode = false
+            currentInput = "0"
+        }
+
+        if !currentInput.contains(".") {
+            currentInput.append(".")
+        }
+        
+        total = currentInput
+    }
+
+    
     
     func updateText() {
         if currentMode == .notSet {

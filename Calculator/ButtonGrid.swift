@@ -80,9 +80,12 @@ struct ButtonGrid: View {
     }
     
     func modeWasPressed(button: CalculatorImageButton) {
+        savedInt = currentInt
+        currentInput = String(currentInt)
         currentMode = button.mode
         lastButtonWasMode = true
     }
+
     
     func clearWasPressed(button: CalculatorButton) {
         total = "0"
@@ -130,6 +133,7 @@ struct ButtonGrid: View {
     
     func negativeWasPressed(button: CalculatorButton) {
         currentInt *= -1
+        currentInput = String(currentInt)
         updateText()
     }
     

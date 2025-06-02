@@ -17,6 +17,16 @@ The app fully supports **landscape (horizontal) mode**. When the device is rotat
 - The UI adapts smoothly.
 - The **number storage area** (where current calculations or memory are shown) dynamically **moves to the left** side of the screen for optimal readability and usability.
 
+### 🖼 Custom App Icon Support
+
+The app includes a fully customized **iOS app icon**, designed to integrate beautifully with different iOS themes:
+
+- 🌞 **Light Mode**: High-contrast icon variation for bright backgrounds
+- 🌚 **Dark Mode**: Alternate variation optimized for dark mode
+- 🎨 **Tinted/Accent Adaptive**: Icon version respects the system’s accent color and applies a subtle tint for cohesion
+
+This gives the app a polished, platform-native look and feel across all display environments.
+
 ### ➗ Basic Calculator Functionality
 - Addition (+)
 - Subtraction (−)

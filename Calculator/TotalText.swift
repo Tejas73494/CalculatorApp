@@ -1,6 +1,6 @@
 //
 //  TotalText.swift
-//  First App
+//
 //
 //  Created by Tejas Naik on 5/10/25.
 //

@@ -1,6 +1,6 @@
 //
 //  CalculatorApp.swift
-//  Calculator
+//
 //
 //  Created by Tejas Naik on 5/17/25.
 //

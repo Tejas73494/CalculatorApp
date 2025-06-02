@@ -1,6 +1,6 @@
 //
 //  CalculatorImageButton.swift
-//  First App
+//
 //
 //  Created by Tejas Naik on 5/11/25.
 //

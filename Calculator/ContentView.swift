@@ -9,12 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     @State var total = "0"
+
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     var body: some View {
-        VStack {
-            TotalText(value: total)
-            ButtonGrid(total: $total)
+        if verticalSizeClass == .compact {
+            HStack {
+                TotalText(value: total)
+                    .frame(height: 100)
+                    .font(.largeTitle)
+
+                ButtonGrid(total: $total)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .padding()
+        } else {
+            VStack {
+                TotalText(value: total)
+                ButtonGrid(total: $total)
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
